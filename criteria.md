@@ -51,63 +51,73 @@ whether you hit them:
 
 ---
 
-## 1.
+## 1. Overall accuracy is at least 0.85
 
-<!-- Your criterion. It must name a number. -->
+On the held-out test split, overall accuracy is **at least 0.85** on every one
+of the three seeds (42, 7, 2024).
 
-
-
-**Why this target:**
-
-
-
----
-
-## 2.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
+**Why this target:** My labels are about *topic*, not tone, and topic in a news
+headline usually shows up in strong keywords: "sentenced", "arrested",
+"charged" for `crime_court`, and "candidate", "campaign", "voters" for
+`politics_elections`. Guessing at random gets about 33%, and always guessing
+`announcements` (my biggest label) gets about 50–60%. A useful feed filter has
+to beat that by a wide margin, so I set the bar high on purpose.
 
 ---
 
-## 3.
+## 2. `crime_court` has an F1 of at least 0.60
 
-<!-- Your criterion. -->
+On the held-out test split, the F1 score for `crime_court` is **at least
+0.60** on every one of the three seeds.
 
-
-
-**Why this target:**
-
-
-
----
-
-## 4.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
+**Why this target:** `crime_court` is my smallest label. In my first 28 posts
+it was about 18%, which is roughly 36 posts out of 200 and only about 5–6 posts
+in the test split. With so few test posts, one mistake moves the F1 a lot, so
+this target is looser than my overall accuracy target. I didn't go lower
+than 0.60 because crime headlines use very distinctive words.
 
 ---
 
-## 5.
+## 3. No label covers more than 60% of labels.csv
 
-<!-- Your criterion. -->
+In the final `labels.csv`, the biggest label (expected to be
+`announcements`) is **at most 60%** of all rows, checked by counting the label
+column.
 
+**Why this target:** `announcements` is my catch-all label, so it naturally
+grows the fastest. In my first 28 posts it was already about 50%. The
+assignment's hard limit is 70%, but at 70% a model could score well just by
+guessing `announcements`. Holding it to 60% forces me to go and collect more
+`crime_court` and `politics_elections` posts.
 
+---
 
-**Why this target:**
+## 4. I agree with staff on at least 24 of the 30 reference posts
 
+When I label the 30-post staff reference set in Unit 6 (using the staff
+taxonomy), my labels match the staff labels on **at least 24 of 30 posts
+(80%)**, as reported by `agreement.py`.
 
+**Why this target:** The staff set includes posts chosen because they are
+ambiguous, so 100% isn't realistic. My own stress test showed I can be
+inconsistent on borderline posts: on 8 boundary headlines, I gave 2 labels
+that contradicted my own written definitions. 80% leaves room for about 6
+genuinely hard posts, but still catches it if I'm applying rules loosely.
+
+---
+
+## 5. Confident predictions are right at least 90% of the time
+
+On the held-out test split, of all predictions where the model's top-label
+probability is **0.80 or higher**, **at least 90%** are correct, on every one
+of the three seeds.
+
+**Why this target:** If someone used TakeMeter to filter the r/Arkansas feed,
+the confident predictions are the ones they would trust without checking. A
+filter that is "sure" but wrong 1 time in 5 would put sentencing news into the
+politics feed. I expect most uncertainty to sit on my hard boundaries (court
+rulings, candidates and crime), so the confident predictions should mostly be
+the easy keyword cases, and those should be right almost every time.
 
 ---
 
