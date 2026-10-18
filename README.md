@@ -42,7 +42,14 @@
 <!-- Your community, and what your classifier sorts posts into. Three or four
      sentences. -->
 
-
+TakeMeter sorts posts from **r/Arkansas** that carry the **News** flair. Almost
+every one of these posts is a link to a local news story plus its headline. The
+classifier reads the headline and places it in one of three labels:
+`crime_court` (crimes, arrests, sentencings, lawsuits, rulings),
+`politics_elections` (candidates, campaigns, voting, and politicians acting as
+political figures), or `announcements` (all other news from institutions,
+businesses, and communities). The goal is to let a reader of the subreddit
+filter the feed by the kind of story they want.
 
 ---
 
@@ -54,35 +61,88 @@
      The decision rule is worth a point on its own and it's the thing most
      people leave out. Every taxonomy has a hardest boundary. Name yours. -->
 
-### `label_one`
+### `crime_court`
 
-**Definition:**
-
-**Example 1:**
->
-
-**Example 2:**
->
-
-### `label_two`
-
-**Definition:**
+**Definition:** A post whose main subject is a criminal incident or a legal action against an alleged wrongdoer, such as a crime, arrest, charge, sentencing, lawsuit, or settlement (civil cases included).
 
 **Example 1:**
->
+> Former Garland County chief public defender arrested again on felony drug charges
 
 **Example 2:**
->
+> Arkansas one of 8 states suing OpenAI over ChatGPT risks to children
+
+### `politics_elections`
+
+**Definition:** A post whose main subject is elected officials, candidates, campaigns, or voting: what they say or do, or how a race is going.
+
+**Example 1:**
+> Little Rock mayoral candidates share stances on crime, growth ahead of November midterms
+
+**Example 2:**
+> Debate in Arkansas' US Senate race won't take place, Cotton and Shoffner campaigns say
+
+### `announcements`
+
+**Definition:** A post reporting news from an institution, business, or community (a decision, opening, report, award, warning, or event) whose main subject is not crime, courts, or politics.
+
+**Example 1:**
+> Hugo's of Fayetteville among nine restaurants named finalists for Arkansas Food Hall of Fame
+
+**Example 2:**
+> Mountain Valley Spring Water opens new manufacturing facility in Hot Springs
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `politics_elections` vs. `announcements`
 
 **The decision rule I used every time:**
 <!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
      if the tone is heated." -->
 
+If the post centers on an election, a candidate, a campaign, voting, or a
+politician acting as a political figure (a statement, a visit, an accusation),
+it is `politics_elections`. If it centers on the outcome of a government
+decision (a vote, a contract, a closure, a policy), it is `announcements`, even
+when elected officials made that decision.
 
+*Example:* "Little Rock School Board votes 4-2 to close three elementary
+schools" is `announcements`: the news is the closure, not the board members.
+"Senator Cotton and labor secretary visit Russellville to discuss disability
+employment and inflation" is `politics_elections`: the news is a politician
+appearing as a political figure.
+
+**Secondary rules (found by stress-testing):**
+
+- **Candidates and crime:** A post about *candidates* for a judge or prosecutor
+  seat, or candidates talking *about* crime, is `politics_elections`. But if a
+  candidate or politician is themselves arrested, charged, sued, or sentenced,
+  the legal event wins and the post is `crime_court`.
+- **Court rulings with no wrongdoer:** A ruling on a law, ballot measure, or
+  policy, where nobody is accused of anything, is labeled by its topic, not as
+  `crime_court`. A ruling on what appears on the ballot is
+  `politics_elections`; a ruling blocking a school or health policy is
+  `announcements`.
+- **Protests and rallies:** Demonstrations, rallies, and public pushback at
+  meetings are `announcements` (community events), unless they are organized
+  by a campaign or candidate.
+- **Warnings about crime:** A police or official warning about a crime or
+  scam (e.g. "Conway police warn residents about phone scam") is
+  `crime_court`. The crime decides the label, not the fact that it was
+  announced. Other warnings (weather, wildfire, illness) stay
+  `announcements`.
+
+### A label I dropped
+
+I started with a fourth label, `opinions_debates`, for posts expressing a
+strong view. It didn't hold up. News-flaired posts are link headlines, and in my
+first 28 posts only one ("Why I don't feel sorry for Arkansas farmers", an
+op-ed headline) was clearly an opinion. That works out to about 4%, which would
+leave 1–2 examples in the test split, too few to measure. The headlines also
+mixed two kinds of distinction: some of my labels were about *topic* (crime,
+court) and others about *post type* (opinion, announcement), so posts fit two
+labels at once. I switched to a taxonomy built only on topic and merged crime
+and court into one label, since most court news in this community is the
+second half of a crime story.
 
 ---
 
@@ -91,7 +151,7 @@
 <!-- Where you collected from, how you labelled, your counts, and three hard
      cases. -->
 
-**Where the posts came from:**
+**Where the posts came from:** r/Arkansas (public subreddit), posts with the **News** flair only. Each post is a headline plus a link to a local outlet (Arkansas Democrat-Gazette, Arkansas Times, Arkansas Advocate, KATV, KARK, THV11, 5NEWS, 4029, NWA Homepage). The model sees the headline text only, usually 10–20 words per post.
 
 **How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
 Say so plainly — the disclosure is required, not penalised. -->
