@@ -44,11 +44,13 @@
 
 TakeMeter sorts posts from **r/Arkansas** that carry the **News** flair. Almost
 every one of these posts is a link to a local news story plus its headline. The
-classifier reads the headline and places it in one of three labels:
-`crime_court` (crimes, arrests, sentencings, lawsuits, rulings),
-`politics_elections` (candidates, campaigns, voting, and politicians acting as
-political figures), or `announcements` (all other news from institutions,
-businesses, and communities). The goal is to let a reader of the subreddit
+classifier reads the headline and places it in one of four labels:
+`crime_court` (crimes, suspected crimes, arrests, sentencings, lawsuits,
+rulings), `politics_elections` (candidates, campaigns, voting, and politicians
+acting as political figures), `debates_opinions` (people arguing, opposing,
+urging, or still discussing an issue with no decision yet), or `announcements`
+(decisions and all other news from institutions, businesses, and
+communities). The goal is to let a reader of the subreddit
 filter the feed by the kind of story they want.
 
 ---
@@ -63,7 +65,7 @@ filter the feed by the kind of story they want.
 
 ### `crime_court`
 
-**Definition:** A post whose main subject is a criminal incident or a legal action against an alleged wrongdoer, such as a crime, arrest, charge, sentencing, lawsuit, or settlement (civil cases included).
+**Definition:** (crime **or** court; a post needs only one of the two) A post whose main subject is a criminal incident, a legal action, or a court acting as a court, such as a crime, arrest, charge, sentencing, lawsuit, settlement, appeal, or court ruling (civil and constitutional cases included).
 
 **Example 1:**
 > Former Garland County chief public defender arrested again on felony drug charges
@@ -81,15 +83,32 @@ filter the feed by the kind of story they want.
 **Example 2:**
 > Debate in Arkansas' US Senate race won't take place, Cotton and Shoffner campaigns say
 
+### `debates_opinions`
+
+**Definition:** A post whose main news is people arguing, opposing, urging, raising concerns, reacting, or still discussing an issue, with no decision made yet, and not tied to an election, a crime, or a court.
+
+**Example 1:**
+> Residents in Arkansas, Missouri unite against proposed Oregon County data center
+
+**Example 2:**
+> Arkansas lawmakers weigh prison expansion versus reforms at second capacity hearing
+
 ### `announcements`
 
-**Definition:** A post reporting news from an institution, business, or community (a decision, opening, report, award, warning, or event) whose main subject is not crime, courts, or politics.
+**Definition:** A post reporting news from an institution, business, or community (a decision, opening, report, award, warning, or event) whose main subject is not crime, courts, politics, or an ongoing debate.
 
 **Example 1:**
 > Hugo's of Fayetteville among nine restaurants named finalists for Arkansas Food Hall of Fame
 
 **Example 2:**
 > Mountain Valley Spring Water opens new manufacturing facility in Hot Springs
+
+### Order I check labels in
+
+1. Crime or court (including suspected or possible crime) → `crime_court`
+2. Election, candidate, campaign, or a politician acting politically → `politics_elections`
+3. People arguing, opposing, urging, reacting, or still discussing, no decision yet → `debates_opinions`
+4. A decision made, or anything else → `announcements`
 
 ### The hardest boundary
 
@@ -117,32 +136,51 @@ appearing as a political figure.
   seat, or candidates talking *about* crime, is `politics_elections`. But if a
   candidate or politician is themselves arrested, charged, sued, or sentenced,
   the legal event wins and the post is `crime_court`.
-- **Court rulings with no wrongdoer:** A ruling on a law, ballot measure, or
-  policy, where nobody is accused of anything, is labeled by its topic, not as
-  `crime_court`. A ruling on what appears on the ballot is
-  `politics_elections`; a ruling blocking a school or health policy is
-  `announcements`.
-- **Protests and rallies:** Demonstrations, rallies, and public pushback at
-  meetings are `announcements` (community events), unless they are organized
-  by a campaign or candidate.
+- **Courts:** Any post where a court or judge acts (a ruling, appeal, lawsuit,
+  hearing, or a court's own request) is `crime_court`, even when nobody is
+  accused of a crime. Exception: in Arkansas a *county judge* is an elected
+  executive office, not a court, so county-judge candidates and a county
+  judge's veto are labeled by topic (`politics_elections` or
+  `announcements`).
+- **Protests and rallies:** Demonstrations, rallies, and public pushback are
+  `debates_opinions`, unless they are organized by a campaign or candidate.
+- **Discussing vs. deciding:** If a board or lawmakers *voted, approved, or
+  passed* something, it is `announcements`. If they are still *considering,
+  discussing, exploring, or weighing* it, it is `debates_opinions`.
 - **Warnings about crime:** A police or official warning about a crime or
   scam (e.g. "Conway police warn residents about phone scam") is
   `crime_court`. The crime decides the label, not the fact that it was
   announced. Other warnings (weather, wildfire, illness) stay
   `announcements`.
+- **Responses:** When an institution, official, advocate, or ordinary person
+  responds or reacts to something, they are stating a view, so it is
+  `debates_opinions`. When a *politician or candidate* responds, it stays
+  `politics_elections`.
+- **Suspected or possible crime:** Anything that is, is suspected to be, or
+  could become a crime is `crime_court`: accusations, allegations, suspects,
+  possible future charges, even a centuries-old suspected murder. This holds
+  even when the headline is about a debate or audit *of* those allegations.
+- **Crime as background (narrow exception):** If the headline's news is a
+  person surviving or helping after a crime (e.g. a survivor helping victims),
+  label the human story, `announcements`. Institutional *responses* follow the
+  Responses rule above.
 
-### A label I dropped
+### A label I dropped, then brought back
 
-I started with a fourth label, `opinions_debates`, for posts expressing a
-strong view. It didn't hold up. News-flaired posts are link headlines, and in my
-first 28 posts only one ("Why I don't feel sorry for Arkansas farmers", an
-op-ed headline) was clearly an opinion. That works out to about 4%, which would
-leave 1–2 examples in the test split, too few to measure. The headlines also
-mixed two kinds of distinction: some of my labels were about *topic* (crime,
-court) and others about *post type* (opinion, announcement), so posts fit two
-labels at once. I switched to a taxonomy built only on topic and merged crime
-and court into one label, since most court news in this community is the
-second half of a crime story.
+I started with a fourth label, `opinions_debates`, meant for posts *expressing*
+a strong view. In my first 28 posts only one ("Why I don't feel sorry for
+Arkansas farmers", an op-ed headline) fit, about 4%, so I dropped it and kept
+three topic labels. I also merged crime and court into one label, since most
+court news here is the second half of a crime story.
+
+While checking the full 207 posts I noticed a group my three labels handled
+badly: headlines where the news is people *arguing about* something (boards
+still discussing, residents opposing, advocates urging, someone reacting),
+not a decision. These were all landing in `announcements`, which hid them and
+pushed that label to 61%. I brought the label back as `debates_opinions`,
+defined by "no decision yet" instead of "opinion piece". It now covers 23 posts
+(11%). Two of my 20 cold labels were made before this change; I relabelled
+them and recorded the original label in the note column.
 
 ---
 
@@ -156,14 +194,27 @@ second half of a crime story.
 **How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
 Say so plainly — the disclosure is required, not penalised. -->
 
+I collected 207 News-flaired headlines (about Sept 26 – Oct 17, 2026) by
+screenshotting and copying the subreddit feed, and dropped near-duplicate
+stories (the same event posted twice from different outlets) so they can't
+leak across the train/test split. I labelled **20 posts cold first** (marked
+`cold`), using only my written definitions. Claude then **pre-labelled the
+other 187** from those definitions (marked `pre-labelled`), flagging 25 it was
+unsure about. I read and corrected them: 32 were changed (`pre-labelled,
+corrected`), the rest kept (`pre-labelled, checked`). While correcting, I added
+the fourth label `debates_opinions` and several decision rules (courts,
+suspected crime, responses, discussing vs. deciding). Two cold labels were
+relabelled after that change; their note column records the original label.
+
 **Counts per label:**
 
 | Label | Count | Share |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| `announcements` | 105 | 51% |
+| `crime_court` | 44 | 21% |
+| `politics_elections` | 34 | 16% |
+| `debates_opinions` | 24 | 12% |
+| **Total** | 207 | 100% |
 
 **Three hard cases**
 
@@ -171,25 +222,25 @@ Say so plainly — the disclosure is required, not penalised. -->
      been, and what you chose. These are worth more than the easy 190. -->
 
 **1.**
-> *The post:*
+> *The post:* Arkansas man survives Saudi Arabia airport attack, helps wounded victims in aftermath
 >
-> *Could have been:*
+> *Could have been:* `crime_court` or `announcements`
 >
-> *I chose, because:*
+> *I chose `announcements`, because:* the attack is only the background. The headline's news is a person surviving and helping victims, so it ends as a human story, not a crime story.
 
 **2.**
-> *The post:*
+> *The post:* Lonoke County will choose new sheriff after candidate's murder case drew national attention
 >
-> *Could have been:*
+> *Could have been:* `politics_elections`, `crime_court`, or `announcements`
 >
-> *I chose, because:*
+> *I chose `announcements`, because:* the news is that the county is going to choose a new sheriff. There are no candidates or campaign in the headline yet, and the murder case is background. This one sits right on my hardest boundary.
 
 **3.**
-> *The post:*
+> *The post:* West Memphis mayor says Google data center could generate $20 million in new annual tax revenue for city
 >
-> *Could have been:*
+> *Could have been:* `politics_elections` or `debates_opinions`
 >
-> *I chose, because:*
+> *I chose `debates_opinions`, because:* "says … could" is a prediction and a view, not a decision, and he is speaking about economic development, not acting as a candidate.
 
 ---
 

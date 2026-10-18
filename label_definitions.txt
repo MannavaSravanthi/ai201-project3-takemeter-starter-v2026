@@ -3,6 +3,7 @@
 # Copy these from your README so the baseline is judged on exactly the
 # definitions you wrote. baseline.py reads this file.
 
-crime_court: a post whose main subject is a criminal incident or a legal action against an alleged wrongdoer, such as a crime, arrest, charge, sentencing, lawsuit, or settlement (civil cases included)
+crime_court: a post whose main subject is a criminal incident, a legal action, or a court acting as a court, such as a crime, arrest, charge, sentencing, lawsuit, settlement, appeal, or court ruling (civil and constitutional cases included)
 politics_elections: a post whose main subject is elected officials, candidates, campaigns, or voting, covering what they say or do or how a race is going
-announcements: a post reporting news from an institution, business, or community (a decision, opening, report, award, warning, or event) whose main subject is not crime, courts, or politics
+debates_opinions: a post whose main news is people arguing, opposing, urging, raising concerns, reacting, or still discussing an issue, with no decision made yet, and not tied to an election, a crime, or a court
+announcements: a post reporting news from an institution, business, or community (a decision, opening, report, award, warning, or event) whose main subject is not crime, courts, politics, or an ongoing debate

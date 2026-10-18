@@ -59,22 +59,29 @@ of the three seeds (42, 7, 2024).
 **Why this target:** My labels are about *topic*, not tone, and topic in a news
 headline usually shows up in strong keywords: "sentenced", "arrested",
 "charged" for `crime_court`, and "candidate", "campaign", "voters" for
-`politics_elections`. Guessing at random gets about 33%, and always guessing
-`announcements` (my biggest label) gets about 50–60%. A useful feed filter has
+`politics_elections`. Guessing at random among my four labels gets about 25%,
+and always guessing `announcements` (my biggest label) gets about 51%. A useful feed filter has
 to beat that by a wide margin, so I set the bar high on purpose.
 
 ---
 
-## 2. `crime_court` has an F1 of at least 0.60
+## 2. `debates_opinions` has an F1 of at least 0.60
 
-On the held-out test split, the F1 score for `crime_court` is **at least
-0.60** on every one of the three seeds.
+On the held-out test split, the F1 score for `debates_opinions` is **at
+least 0.60** on every one of the three seeds.
 
-**Why this target:** `crime_court` is my smallest label. In my first 28 posts
-it was about 18%, which is roughly 36 posts out of 200 and only about 5–6 posts
-in the test split. With so few test posts, one mistake moves the F1 a lot, so
-this target is looser than my overall accuracy target. I didn't go lower
-than 0.60 because crime headlines use very distinctive words.
+**Why this target:** `debates_opinions` is my smallest label: 23 of 207 posts
+(11%), so only about 3–4 posts land in the test split, and one mistake moves
+the F1 a lot. That's why this target is looser than my overall accuracy
+target. It is also my newest and fuzziest label (I added it after labelling
+had started), and its boundary with `announcements` ("still discussing" vs.
+"decided") depends on single words like "consider" or "approve". I kept 0.60
+rather than going lower because those cue words ("urge", "oppose", "weigh",
+"concerns") are fairly distinctive.
+
+> *Note: before any training, this criterion named `crime_court`, which was
+> my smallest label until I added `debates_opinions`. The number (0.60) is
+> unchanged.*
 
 ---
 
@@ -85,7 +92,8 @@ In the final `labels.csv`, the biggest label (expected to be
 column.
 
 **Why this target:** `announcements` is my catch-all label, so it naturally
-grows the fastest. In my first 28 posts it was already about 50%. The
+grows the fastest. In my first 28 posts it was already about 50%, and in my
+first full labelling pass it reached 61%. The
 assignment's hard limit is 70%, but at 70% a model could score well just by
 guessing `announcements`. Holding it to 60% forces me to go and collect more
 `crime_court` and `politics_elections` posts.
