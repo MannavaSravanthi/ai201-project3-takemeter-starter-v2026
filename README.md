@@ -287,19 +287,28 @@ data size, not necessarily of the model.
      workflow and disclosing it costs you nothing. Not disclosing it is the
      problem. -->
 
-**Moment 1**
+**Moment 1: stress-testing my labels**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* I gave Claude my three label definitions and asked it to write 8 made-up r/Arkansas headlines that sit on the boundaries between them.
+- *What came back:* 8 headlines like "Arkansas Supreme Court rules medical marijuana expansion can appear on November ballot" and "Attorney General Griffin announces settlement with Walmart over opioid distribution." I labelled them myself without help. I placed only 3 cleanly; on 2 my answer contradicted my own written definition, and 3 weren't covered by any rule.
+- *What I changed:* I added four decision rules: a candidate charged with a crime is `crime_court`, protests and rallies have a fixed label, police warnings about a crime are `crime_court`, and how to handle court rulings with no wrongdoer. (I later replaced that last one with a simpler rule: any court acting as a court is `crime_court`.)
 
-**Moment 2**
+**Moment 2: correcting the AI pre-labels**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* After labelling 20 posts cold, I asked Claude to pre-label the other 187 using my definitions and to flag the ones it was unsure about.
+- *What came back:* Labels for all 187, with 25 flagged as unsure. Pre-labelled, `announcements` was 64% of the data, above my own 60% target.
+- *What I changed:* I went through the labels and changed 32. Several corrections became new rules: "suspected or possible crime is `crime_court`," "any court acting as a court is `crime_court`," and "a person surviving or helping after a crime is the human story, not the crime." The biggest change came from noticing that headlines about people still *discussing* or *opposing* something (boards considering, residents uniting against, advocates urging) didn't fit `announcements`. I added a fourth label, `debates_opinions`, for them. That brought `announcements` down to 51%.
 
 **Pre-labelling disclosure:**
+
+The first 20 rows I labelled cold, by myself, using only my written
+definitions (note column: `cold`). The remaining 187 rows were pre-labelled by
+Claude from my definitions and then read and corrected by me (note column:
+`pre-labelled, checked` if I kept the label, `pre-labelled, corrected` if I
+changed it). Two cold rows were relabelled after I added `debates_opinions`;
+their note column records the original label. Claude also helped me
+transcribe headlines from my screenshots into `labels.csv` and removed
+near-duplicate stories.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
