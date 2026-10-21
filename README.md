@@ -248,17 +248,33 @@ relabelled after that change; their note column records the original label.
 
 <!-- Your starting model, your settings, and anything you changed and why. -->
 
-**Base model:**
+**Base model:** `distilbert-base-uncased`
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Settings:** 3 epochs, learning rate 2e-5, batch size 16, max length 128
+tokens, seed 42. Trained on an Apple Silicon GPU (`mps`), 8 GB RAM.
 
-**Anything I changed from the defaults, and why:**
+**Anything I changed from the defaults, and why:** Nothing. I kept every
+default. My headlines are 10–20 words, far under the 128-token limit, so there
+was no reason to change `MAX_LENGTH`.
 
 **Split sizes:** <!-- train / val / test, and per-label counts in the test
 split. If a label had fewer than about 8 in test, say so — it explains a lot
 of next unit's variance. -->
 
+train 144 · val 31 · test 32
 
+| Label | Train | Val | Test |
+|---|---|---|---|
+| `crime_court` | 30 | 7 | 7 |
+| `politics_elections` | 24 | 5 | 5 |
+| `debates_opinions` | 17 | 3 | 4 |
+| `announcements` | 73 | 16 | 16 |
+
+Three of my four labels have fewer than 8 test examples: `crime_court` (7),
+`politics_elections` (5), and `debates_opinions` (4). With only 4 test posts,
+one wrong prediction moves `debates_opinions`' F1 by a large amount, so I
+expect its score to swing between seeds next unit. That is a property of the
+data size, not necessarily of the model.
 
 ---
 
