@@ -1,0 +1,209 @@
+[
+  {
+    "seed": 42,
+    "n_test": 32,
+    "accuracy": 0.5,
+    "f1_macro": 0.16666666666666666,
+    "per_label": {
+      "crime_court": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "politics_elections": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5
+      },
+      "debates_opinions": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4
+      },
+      "announcements": {
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "support": 16
+      }
+    },
+    "confusion": {
+      "crime_court": {
+        "crime_court": 0,
+        "politics_elections": 0,
+        "debates_opinions": 0,
+        "announcements": 7
+      },
+      "politics_elections": {
+        "crime_court": 0,
+        "politics_elections": 0,
+        "debates_opinions": 0,
+        "announcements": 5
+      },
+      "debates_opinions": {
+        "crime_court": 0,
+        "politics_elections": 0,
+        "debates_opinions": 0,
+        "announcements": 4
+      },
+      "announcements": {
+        "crime_court": 0,
+        "politics_elections": 0,
+        "debates_opinions": 0,
+        "announcements": 16
+      }
+    },
+    "confidence": {
+      "mean_when_right": 0.4453006386756897,
+      "mean_when_wrong": 0.43057191371917725,
+      "accuracy_most_confident_third": 0.8,
+      "accuracy_least_confident_third": 0.4,
+      "n_per_third": 10
+    },
+    "device": "mps",
+    "device_name": "Apple Silicon GPU (MPS)",
+    "torch_version": "2.14.1",
+    "max_length": 128
+  },
+  {
+    "seed": 7,
+    "n_test": 32,
+    "accuracy": 0.5,
+    "f1_macro": 0.16666666666666666,
+    "per_label": {
+      "crime_court": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "politics_elections": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5
+      },
+      "debates_opinions": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4
+      },
+      "announcements": {
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "support": 16
+      }
+    },
+    "confusion": {
+      "crime_court": {
+        "crime_court": 0,
+        "politics_elections": 0,
+        "debates_opinions": 0,
+        "announcements": 7
+      },
+      "politics_elections": {
+        "crime_court": 0,
+        "politics_elections": 0,
+        "debates_opinions": 0,
+        "announcements": 5
+      },
+      "debates_opinions": {
+        "crime_court": 0,
+        "politics_elections": 0,
+        "debates_opinions": 0,
+        "announcements": 4
+      },
+      "announcements": {
+        "crime_court": 0,
+        "politics_elections": 0,
+        "debates_opinions": 0,
+        "announcements": 16
+      }
+    },
+    "confidence": {
+      "mean_when_right": 0.4070846438407898,
+      "mean_when_wrong": 0.3912007212638855,
+      "accuracy_most_confident_third": 0.6,
+      "accuracy_least_confident_third": 0.2,
+      "n_per_third": 10
+    },
+    "device": "mps",
+    "device_name": "Apple Silicon GPU (MPS)",
+    "torch_version": "2.14.1",
+    "max_length": 128
+  },
+  {
+    "seed": 2024,
+    "n_test": 32,
+    "accuracy": 0.5,
+    "f1_macro": 0.16666666666666666,
+    "per_label": {
+      "crime_court": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "politics_elections": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5
+      },
+      "debates_opinions": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4
+      },
+      "announcements": {
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "support": 16
+      }
+    },
+    "confusion": {
+      "crime_court": {
+        "crime_court": 0,
+        "politics_elections": 0,
+        "debates_opinions": 0,
+        "announcements": 7
+      },
+      "politics_elections": {
+        "crime_court": 0,
+        "politics_elections": 0,
+        "debates_opinions": 0,
+        "announcements": 5
+      },
+      "debates_opinions": {
+        "crime_court": 0,
+        "politics_elections": 0,
+        "debates_opinions": 0,
+        "announcements": 4
+      },
+      "announcements": {
+        "crime_court": 0,
+        "politics_elections": 0,
+        "debates_opinions": 0,
+        "announcements": 16
+      }
+    },
+    "confidence": {
+      "mean_when_right": 0.43806472420692444,
+      "mean_when_wrong": 0.4305953085422516,
+      "accuracy_most_confident_third": 0.7,
+      "accuracy_least_confident_third": 0.4,
+      "n_per_third": 10
+    },
+    "device": "mps",
+    "device_name": "Apple Silicon GPU (MPS)",
+    "torch_version": "2.14.1",
+    "max_length": 128
+  }
+]

@@ -322,20 +322,43 @@ near-duplicate stories.
 <!-- Both models on the same posts. `python baseline.py --trained results.json`
      prints this table for you. -->
 
+Same 32 held-out posts (`test_split.csv`, seed 42). Baseline:
+`facebook/bart-large-mnli`, zero-shot, using my label definitions. Trained:
+`distilbert-base-uncased`, fine-tuned on 144 posts.
+
 | Measure | Baseline | Trained | Difference |
 |---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+| Overall accuracy | 0.219 | 0.500 | +0.281 |
+| Macro F1 | 0.090 | 0.167 | +0.077 |
+| F1 — `announcements` | 0.000 | 0.667 | +0.667 |
+| F1 — `crime_court` | 0.359 | 0.000 | −0.359 |
+| F1 — `politics_elections` | 0.000 | 0.000 | 0.000 |
+| F1 — `debates_opinions` | 0.000 | 0.000 | 0.000 |
 
 **What I predicted before I looked:**
 <!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
      prediction made afterwards isn't one. -->
 
+My trained model will beat the baseline on `announcements`, because half of
+my training examples (73 of 144) were announcements, while the baseline scored
+an F1 of 0 on that label.
+
+*Honest note:* I had already seen my trained model's overall accuracy (0.50)
+and macro F1 (0.167) before writing this, but not its per-label scores, so I
+made the prediction per label.
+
 **What the gap actually means:**
 <!-- If the baseline matched your trained model, your fine-tuning added
      nothing — and that is a real finding, not a failure. Say it plainly. -->
+
+My prediction was right, but for a bad reason. Both models gave the **same
+answer to every post**: the baseline called all 32 posts `crime_court` (recall
+1.0, precision 0.22), and my trained model called all 32 `announcements`
+(recall 1.0, precision 0.50). Neither one learned to tell my four labels apart.
+The trained model "wins" on accuracy only because `announcements` is the
+biggest label (16 of 32 test posts), so always guessing it scores 0.50. That's
+the same score as a model that never read a single headline. My fine-tuning
+added nothing beyond learning which label is most common.
 
 
 
@@ -346,29 +369,52 @@ near-duplicate stories.
 <!-- Five criteria across three seeds. The notebook's section 6 prints the
      spread table; the Target and Verdict columns are yours. -->
 
+Device: Apple Silicon GPU (`mps`), torch 2.14.1, `distilbert-base-uncased`,
+3 epochs, lr 2e-5, batch 16, max length 128. File:
+`results_three_seeds_before.json`.
+
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.85 | 0.500 | 0.500 | 0.500 | MISSED |
+| 2. `debates_opinions` F1 | ≥ 0.60 | 0.000 | 0.000 | 0.000 | MISSED |
+| 3. Biggest label share in `labels.csv` | ≤ 60% | 51% | 51% | 51% | MET |
+| 4. Agreement with staff on 30 posts | ≥ 24/30 | (Milestone 3) | | | |
+| 5. Accuracy of predictions with confidence ≥ 0.80 | ≥ 90% | see note | see note | see note | |
+
+All three seeds gave the identical result: accuracy 0.500, macro F1 0.167,
+and every test post predicted `announcements`. The spread across seeds is 0
+points, but only because the model gives the same answer no matter which posts
+it sees. Criterion 3 depends only on the labelled file, so it is the same for
+every seed.
+
+*Note on criterion 5:* the model is never confident. Its average top-label
+confidence was about 0.43 on every seed (0.39–0.45), so few or no predictions
+reach 0.80. The notebook's closest measure, accuracy on the most-confident
+third of posts, was 0.80 / 0.60 / 0.70.
 
 ### Confusion matrix
 
 <!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
      An image of a matrix earns nothing. -->
 
-| true \ predicted |  |  |  |
-|---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
+Seed 42 (seeds 7 and 2024 are identical).
+
+| true \ predicted | crime_court | politics_elections | debates_opinions | announcements |
+|---|---|---|---|---|
+| **crime_court** | 0 | 0 | 0 | 7 |
+| **politics_elections** | 0 | 0 | 0 | 5 |
+| **debates_opinions** | 0 | 0 | 0 | 4 |
+| **announcements** | 0 | 0 | 0 | 16 |
 
 **My biggest off-diagonal number, and what it means:**
 <!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
      direction. "7 real analysis posts were called hot_take and only 3 went the
      other way" is a direction, not just an error rate. -->
+
+All 7 real `crime_court` posts were called `announcements`, and nothing went
+the other way. The whole predicted column is `announcements`: the model didn't
+learn any boundary at all. It collapsed onto my biggest label (51% of the
+data) for all 16 non-announcement posts.
 
 
 

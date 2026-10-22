@@ -1,0 +1,200 @@
+{
+  "model": "facebook/bart-large-mnli",
+  "n": 32,
+  "seed": 42,
+  "held_out": true,
+  "used_definitions": true,
+  "scores": {
+    "n": 32,
+    "accuracy": 0.21875,
+    "f1_macro": 0.08974358974358974,
+    "per_label": {
+      "announcements": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 16
+      },
+      "crime_court": {
+        "precision": 0.21875,
+        "recall": 1.0,
+        "f1": 0.358974358974359,
+        "support": 7
+      },
+      "debates_opinions": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4
+      },
+      "politics_elections": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5
+      }
+    }
+  },
+  "predictions": [
+    {
+      "text": "Pro Hog Hagen Smith pitches three innings, surrenders no runs in White Sox playoff win",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Arkansans encouraged to register to vote ahead of elections",
+      "gold": "politics_elections",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Little Rock district closing public schools as enrollment falls; shifting demographics, school choice options cited",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Arkansas one of 8 states suing OpenAI over ChatGPT risks to children",
+      "gold": "crime_court",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Disabled Arkansas kids wait years for care. How parents united to fight",
+      "gold": "debates_opinions",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Conway Corp. to suspend all outdoor watering as emergency water curtailment efforts continue",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Fuel prices, tariffs weigh heavily in east Arkansas' US House race",
+      "gold": "politics_elections",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Fact-checking Sarah Sanders' claims about Brad, the welfare queen",
+      "gold": "politics_elections",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Republicans are spending big in Arkansas",
+      "gold": "politics_elections",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Farm bill takes center stage in Arkansas Senate race as farmers face financial pressure",
+      "gold": "politics_elections",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Walmart's CEO says the retailer is not using personal information to set prices",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Residents in Arkansas, Missouri unite against proposed Oregon County data center",
+      "gold": "debates_opinions",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "ARDOT suspends seasonal mowing in drought areas",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Arkansas' high rate of uninsured babies driven by Medicaid enrollment issues, advocate says",
+      "gold": "debates_opinions",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "An Arkansas Mom Obtained Public Records About a New Data Center. Then She Got Sued.",
+      "gold": "crime_court",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "'Trust is not there': Arkansas farms see sales climb amid meat recall, foreign beef imports",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Arkansas drought could make duck hunting season tougher, costlier",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Attorney demands mediation in case of LRPD officer putting a gun to man's head",
+      "gold": "crime_court",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "In another loss for Sanders, court rules attorney for Corrections Board can get paid",
+      "gold": "crime_court",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Hot Spring County father fatally shoots son after verbal argument turns physical",
+      "gold": "crime_court",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Hail the orange and black! Study names Hendrix best overall college in Arkansas",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Arkansas timber industry in crisis as fuel costs soar; relief eyed in dyed diesel order",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Driver crashes into Razorback Pizza in Maumelle days after deadly Waffle House crash",
+      "gold": "crime_court",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Things To Do in Arkansas This Weekend (Oct. 2-4)",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "'I want to live': Fort Smith mother says Arkansas abortion ban left her doctors afraid to act",
+      "gold": "debates_opinions",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Fayetteville Film Festival winner accepted into Oscar-qualifying event",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Harrisburg to cover license plate reader cameras with trash bags, take them offline",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Arkansas has the highest share of remarried people in the U.S.",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Alpha-gal syndrome is spreading. Arkansas may hold clues to why it's spreading, how it functions \u2014 and what comes next.",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Arkansas judge weighing future of lawsuit challenging state's abortion ban",
+      "gold": "crime_court",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Iran war could cost Arkansas farmers more than $343 million, report finds",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    },
+    {
+      "text": "Hurricane Isaias disrupts Gulf Coast flights; Little Rock airport operating normally",
+      "gold": "announcements",
+      "predicted": "crime_court"
+    }
+  ]
+}
