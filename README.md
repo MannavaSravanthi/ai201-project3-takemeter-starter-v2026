@@ -378,8 +378,8 @@ Device: Apple Silicon GPU (`mps`), torch 2.14.1, `distilbert-base-uncased`,
 | 1. Overall accuracy | ≥ 0.85 | 0.500 | 0.500 | 0.500 | MISSED |
 | 2. `debates_opinions` F1 | ≥ 0.60 | 0.000 | 0.000 | 0.000 | MISSED |
 | 3. Biggest label share in `labels.csv` | ≤ 60% | 51% | 51% | 51% | MET |
-| 4. Agreement with staff on 30 posts | ≥ 24/30 | (Milestone 3) | | | |
-| 5. Accuracy of predictions with confidence ≥ 0.80 | ≥ 90% | see note | see note | see note | |
+| 4. Agreement with staff on 30 posts | ≥ 24/30 | 23/30 | 23/30 | 23/30 | MISSED |
+| 5. Accuracy on most-confident third (revised, see `criteria.md`) | ≥ 0.90 | 0.80 | 0.60 | 0.70 | MISSED |
 
 All three seeds gave the identical result: accuracy 0.500, macro F1 0.167,
 and every test post predicted `announcements`. The spread across seeds is 0
@@ -427,11 +427,11 @@ data) for all 16 non-announcement posts.
 
 | # | Criterion | Target | Verdict | How I decided |
 |---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | Overall accuracy | ≥ 0.85 | MISSED | 0.50 on all three seeds, far under 0.85. |
+| 2 | `debates_opinions` F1 | ≥ 0.60 | MISSED | 0.00 on all three seeds; the model never predicted this label. |
+| 3 | Biggest label ≤ 60% of `labels.csv` | ≤ 60% | MET | `announcements` is 105 of 207 = 51%. Counted from the file; doesn't depend on seed. |
+| 4 | Agreement with staff | ≥ 24/30 | MISSED | `agreement.py` reported 23/30 (77%), one short. One labelling pass, so the same number for every seed. |
+| 5 | Most-confident third accuracy (revised) | ≥ 0.90 | MISSED | 0.80, 0.60, 0.70. None reach 0.90. The original 0.80-confidence version couldn't be measured; the revision and reason are under criterion 5 in `criteria.md`. |
 
 **Diagnoses**
 
@@ -443,6 +443,45 @@ data) for all 16 non-announcement posts.
      ⚠️ Use your agreement report as evidence. It is the only instrument you
      have that can tell a LABELLING problem from a MODEL problem, and this
      section is graded on whether you used it that way. -->
+
+**Criterion 1 (accuracy): a model problem, not mainly a labelling one.**
+Cause: the model can't reach the task from this much data and training; it
+collapsed onto my biggest label. Evidence: the confusion matrix has every one
+of the 32 test posts in the `announcements` column, on all three seeds, giving
+exactly 0.50 (16 of 32 are announcements). Its average confidence was only
+about 0.43, not far above the 0.25 of a pure four-way guess, so it
+barely learned anything. With 144 training posts, batch size 16 and 3 epochs, it got
+only about 27 weight updates. If this were mainly a labelling problem, I'd
+expect the model to confuse two specific labels (for example, crime vs.
+debates). Instead it confuses everything with announcements equally, which
+points at training, not at one inconsistent boundary.
+
+**Criterion 2 (`debates_opinions` F1): too few examples, plus the same collapse.**
+Cause: this label has only 17 training and 4 test posts, the fewest of the
+four, and the model never predicted it at all. Evidence: the split table (17 /
+3 / 4) and the confusion matrix (all 4 debates posts called announcements). A
+labelling problem probably contributes too. I added this label partway through
+labelling, and its boundary with `announcements` ("still discussing" vs.
+"decided") is the fuzziest one I have. My agreement report shows I'm weakest at
+exactly this kind of judgment: deciding whether a post's content really carries
+its point.
+
+**Criterion 4 (staff agreement): a labelling-consistency problem.**
+Cause: I apply one boundary loosely. Evidence: in 3 of my 7 disagreements (#1,
+#3, #4) the writer described their own experience *and* gave a measurement, and
+I let "it's personal" decide the label. In 2 more (#5, #7) I went the other way
+and called a post `analysis` just because it contained a number or an "every".
+After adjudicating, 5 of the 7 were pile (a): the rule covered it and I applied
+it loosely. Because I mixed up whether a fact is "load-bearing" on the staff
+set, I probably made similar inconsistent calls in my own 207 labels,
+especially on the `debates_opinions` / `announcements` boundary.
+
+**Criterion 5 (confidence): follows from criterion 1.**
+Cause: a model that gives nearly the same weak answer to every post has no
+real confidence signal. Evidence: average confidence about 0.43, and the
+"most-confident" third is right only because most posts happen to be
+announcements. Fixing criterion 1 is the only way this one can move.
+
 
 
 

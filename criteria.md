@@ -127,6 +127,17 @@ politics feed. I expect most uncertainty to sit on my hard boundaries (court
 rulings, candidates and crime), so the confident predictions should mostly be
 the easy keyword cases, and those should be right almost every time.
 
+> **Revised in unit 6:** On the held-out test split, accuracy on the
+> **most-confident third** of predictions is **at least 0.90**, on every one
+> of the three seeds.
+>
+> **Why revised:** the original couldn't be measured. The notebook reports
+> confidence only as the average when right/wrong and accuracy on the most-
+> and least-confident thirds; it never reports how many predictions reach
+> 0.80. My model's average top-label confidence was about 0.43, so I had no
+> way to show which predictions (if any) cleared 0.80. The revision keeps the
+> same 0.90 bar and points it at a number the notebook actually produces.
+
 ---
 
 <!-- ─────────────────────────────────────────────────────────────────────────
