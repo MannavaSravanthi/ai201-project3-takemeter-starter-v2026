@@ -1,0 +1,43 @@
+{
+  "compared": 30,
+  "agreed": 23,
+  "agreement_rate": 0.7666666666666667,
+  "disagreements": [
+    {
+      "text": "I tracked sleep against session quality for eleven weeks. Under seven hours the next day's intervals were 6-8 seconds per mile slower, every time bar one. Small sample, one runner, but it's consistent enough that I've stopped scheduling hard days after late shifts.",
+      "staff": "analysis",
+      "mine": "reaction"
+    },
+    {
+      "text": "Carbon plates aren't the whole story. My times dropped 2% in the shoes and another 2% the following year in the same pair, when the only thing that changed was going from 35 to 50 miles a week.",
+      "staff": "analysis",
+      "mine": "hot_take"
+    },
+    {
+      "text": "Ran the same loop in 4C and in 24C within a fortnight, same effort by heart rate. 90 seconds slower in the heat over six miles. People keep saying heat costs you 'a bit' and it's more than that.",
+      "staff": "analysis",
+      "mine": "reaction"
+    },
+    {
+      "text": "Three of us ran the same session on the same day, different shoes, within 10 seconds of each other over 5 miles. I'm not saying shoes do nothing, but whatever they do was smaller than the noise between three people.",
+      "staff": "analysis",
+      "mine": "reaction"
+    },
+    {
+      "text": "Times are down about 3% since the shoe rules changed, so obviously the shoes are the whole story and the sport has a problem.",
+      "staff": "hot_take",
+      "mine": "analysis"
+    },
+    {
+      "text": "Road racing peaked in about 2015 and everything since has been marketing.",
+      "staff": "hot_take",
+      "mine": "reaction"
+    },
+    {
+      "text": "Every injury thread on this forum is the same injury and the same three replies.",
+      "staff": "hot_take",
+      "mine": "analysis"
+    }
+  ],
+  "staff_posts_not_in_mine": 0
+}

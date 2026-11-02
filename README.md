@@ -456,47 +456,84 @@ data) for all 16 non-announcement posts.
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
 
-**Agreement rate:** ___ / 30 = ___%
-
-<!-- Nobody grades this number. A 60% who argues every disagreement from the
-     stated rules beats a 95% who wrote "staff was right" nine times. Several
-     of the 30 were chosen because they're genuinely ambiguous — you should be
-     winning some of these. -->
+**Agreement rate:** 23 / 30 = 77%
 
 **Disagreements**
 
-<!-- Three lines each: the post, both labels, and who you think is right and
-     why — grounded in the staff definitions you were both applying.
-
-     Then sort each into one of three piles:
-       (a) the rule covered it and I applied it loosely → a consistency problem
-       (b) the rule genuinely doesn't say               → a gap in the definitions
-       (c) the rule is ambiguous here and my reading is defensible → argue it.
-           This is a legitimate win.
-
-     Pile (a) is the one that matters most for your diagnosis: if you applied a
-     written rule two different ways on 30 posts, that is direct evidence about
-     what you did across your own 200. -->
-
 **1.**
-> *The post:*
+> *The post:* I tracked sleep against session quality for eleven weeks. Under seven hours the next day's intervals were 6-8 seconds per mile slower, every time bar one. Small sample, one runner, but it's consistent enough that I've stopped scheduling hard days after late shifts.
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `analysis` / `reaction`
 >
-> *My call, and why:*
+> *My call, and why:* Staff is right. The writer tracked something for eleven weeks and reports a measured outcome (6–8 seconds per mile), and the conclusion rests on that number. It's personal, but it isn't something that just happened. Rule 3: recency doesn't outrank evidence. I missed it by reading it too quickly as a personal story.
 >
-> *Which pile:*
+> *Which pile:* (a) the rule covered it and I applied it loosely
 
 **2.**
-> *The post:*
+> *The post:* Carbon plates aren't the whole story. My times dropped 2% in the shoes and another 2% the following year in the same pair, when the only thing that changed was going from 35 to 50 miles a week.
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `analysis` / `hot_take`
 >
-> *My call, and why:*
+> *My call, and why:* Staff is right. The writer measured both years and points out that only one thing changed (the mileage). That comparison *is* the argument, so the fact is load-bearing (rule 1). The first sentence sounds like a hot take, but the second sentence does the work.
 >
-> *Which pile:*
+> *Which pile:* (a) the rule covered it and I applied it loosely
+
+**3.**
+> *The post:* Ran the same loop in 4C and in 24C within a fortnight, same effort by heart rate. 90 seconds slower in the heat over six miles. People keep saying heat costs you 'a bit' and it's more than that.
+>
+> *Staff said / I said:* `analysis` / `reaction`
+>
+> *My call, and why:* Staff is right, and I changed my mind. I first read it as the writer's own experience and feeling. But the post is pushing back on a general claim ("heat costs you 'a bit'"), so it isn't a `reaction` (rule 2), and the reason it gives is a measured result: 90 seconds slower at the same heart rate. That number carries the argument (rule 1), so it's `analysis`.
+>
+> *Which pile:* (a) the rule covered it and I applied it loosely
+
+**4.**
+> *The post:* Three of us ran the same session on the same day, different shoes, within 10 seconds of each other over 5 miles. I'm not saying shoes do nothing, but whatever they do was smaller than the noise between three people.
+>
+> *Staff said / I said:* `analysis` / `reaction`
+>
+> *My call, and why:* I still think this is not `analysis`. Rule 1 asks whether the fact carries the argument. Here the writer hedges their own conclusion ("I'm not saying shoes do nothing"), so the number doesn't settle anything. What's left is a report of one session the writer ran with friends that day, and how they read it. Using the rule 4 tie-break, most of the words are about that session, so I chose `reaction`. A reasonable reader could say `analysis`, which is why this is pile (c).
+>
+> *Which pile:* (c) the rule is ambiguous here and my reading is defensible
+
+**5.**
+> *The post:* Times are down about 3% since the shoe rules changed, so obviously the shoes are the whole story and the sport has a problem.
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* Staff is right. There is a number, but the writer is already certain ("so obviously") that the shoes are the only cause, and the 3% is decoration on that belief. This is almost exactly the example under rule 1.
+>
+> *Which pile:* (a) the rule covered it and I applied it loosely
+
+**6.**
+> *The post:* Road racing peaked in about 2015 and everything since has been marketing.
+>
+> *Staff said / I said:* `hot_take` / `reaction`
+>
+> *My call, and why:* Staff is right. It's a confident general claim about the whole sport with no support; it isn't about something that just happened to the writer. Rule 2: a general claim about the world is `hot_take`.
+>
+> *Which pile:* (a) the rule covered it and I applied it loosely
+
+**7.**
+> *The post:* Every injury thread on this forum is the same injury and the same three replies.
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* Staff is right for this post as written. If every reply really were literally the same, it could be checked and would be `analysis`. But the writer gives no count or example, so it's a generalisation, not a fact doing work.
+>
+> *Which pile:* (b) the rule genuinely doesn't say how to treat a claim that could be checked in principle but isn't backed up
 
 **What the pattern in my disagreements tells me:**
+
+After adjudicating, I agree with staff on 6 of the 7 and still defend 1 (#4).
+Five of the six are pile (a). The clearest pattern: in 3 of the 7
+(#1, #3, #4) the writer describes **their own experience and also gives
+numbers**, and I called those `reaction` while staff called them `analysis`.
+I tend to let "it's personal" decide the label even when a checkable fact is
+present. Two more (#5, #7) went the other way: I called a post `analysis` just
+because it *contained* a number or an "every", even when the fact wasn't
+carrying the argument. So my weak spot is judging whether a fact is
+load-bearing, in both directions.
 
 
 
