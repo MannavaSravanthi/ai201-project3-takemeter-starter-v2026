@@ -580,26 +580,60 @@ load-bearing, in both directions.
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** One training setting: `EPOCHS` from 3 to 10. Nothing else
+changed: same `labels.csv`, same four labels, same seeds (42, 7, 2024), same
+learning rate (2e-5), batch size (16) and max length (128). `RUN_LABEL` was set
+to `"after"`, so the results are in `results_three_seeds_after.json`.
 
-**Which diagnosis pointed at it:**
+**Which diagnosis pointed at it:** Criterion 1. The before-run predicted
+`announcements` for every post on every seed, with average confidence about
+0.43. With 144 training posts, batch size 16 and 3 epochs, the model got only
+27 weight updates, so my diagnosis was under-training rather than one
+inconsistent boundary. 10 epochs gives it 90 updates.
 
 ### Run Log — After
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.85 | 0.750 | 0.750 | 0.750 | MISSED |
+| 2. `debates_opinions` F1 | ≥ 0.60 | 0.000 | 0.000 | 0.000 | MISSED |
+| 3. Biggest label share in `labels.csv` | ≤ 60% | 51% | 51% | 51% | MET |
+| 4. Agreement with staff on 30 posts | ≥ 24/30 | 23/30 | 23/30 | 23/30 | MISSED |
+| 5. Accuracy on most-confident third (revised) | ≥ 0.90 | 1.00 | 1.00 | 0.90 | MET |
+
+Macro F1 went from 0.167 (all seeds) to 0.580 / 0.573 / 0.593.
+
+Per-label F1 (seeds 42 / 7 / 2024):
+
+| Label | Before | After |
+|---|---|---|
+| `crime_court` | 0.00 / 0.00 / 0.00 | 0.83 / 0.77 / 0.83 |
+| `politics_elections` | 0.00 / 0.00 / 0.00 | 0.67 / 0.67 / 0.73 |
+| `debates_opinions` | 0.00 / 0.00 / 0.00 | 0.00 / 0.00 / 0.00 |
+| `announcements` | 0.67 / 0.67 / 0.67 | 0.82 / 0.86 / 0.81 |
+
+Confusion matrix after, seed 42:
+
+| true \ predicted | crime_court | politics_elections | debates_opinions | announcements |
+|---|---|---|---|---|
+| **crime_court** | 5 | 0 | 0 | 2 |
+| **politics_elections** | 0 | 3 | 0 | 2 |
+| **debates_opinions** | 0 | 1 | 0 | 3 |
+| **announcements** | 0 | 0 | 0 | 16 |
 
 **Did it help, and how do I know:**
 
-<!-- If it didn't, say so. Relabelling that didn't help is a genuinely
-     interesting result and earns full credit. -->
-
-
+Yes, clearly, for everything except `debates_opinions`. Accuracy went from 0.50
+to 0.75 on all three seeds, and the model now actually separates
+`crime_court` (F1 about 0.8) and `politics_elections` (about 0.7) instead of
+calling everything `announcements`. Criterion 5 flipped from MISSED to MET:
+the most-confident third is now right 90–100% of the time, and the model is
+more confident when it's right (0.63–0.68) than when it's wrong (0.48–0.51).
+Accuracy still misses 0.85, and `debates_opinions` is still never predicted:
+on every seed its 4 test posts went to `announcements` or
+`politics_elections`. More training fixed the under-training, but it couldn't
+fix a label with only 17 training examples and my fuzziest boundary.
+Criterion 4 can't move from a training change, since it measures my labelling.
 
 ---
 
