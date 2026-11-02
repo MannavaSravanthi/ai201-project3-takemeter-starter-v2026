@@ -299,6 +299,17 @@ data size, not necessarily of the model.
 - *What came back:* Labels for all 187, with 25 flagged as unsure. Pre-labelled, `announcements` was 64% of the data, above my own 60% target.
 - *What I changed:* I went through the labels and changed 32. Several corrections became new rules: "suspected or possible crime is `crime_court`," "any court acting as a court is `crime_court`," and "a person surviving or helping after a crime is the human story, not the crime." The biggest change came from noticing that headlines about people still *discussing* or *opposing* something (boards considering, residents uniting against, advocates urging) didn't fit `announcements`. I added a fourth label, `debates_opinions`, for them. That brought `announcements` down to 51%.
 
+**Unit 6 — Moment 3: building the write-up**
+
+- *What I asked for:* help turning my results into the Unit 6 README sections.
+- *What came back:* Claude read `baseline_results.json`, the three-seed result files and `agreement_results.json`, and drafted the Baseline vs. Trained table, both run logs, the confusion matrices, the verdicts and diagnoses, The Improvement, and What's Still Broken. It also suggested the improvement (more epochs) based on the diagnosis, and revised criterion 5 in `criteria.md` because the original couldn't be measured (the original line is kept).
+- *What I changed:* I chose the improvement and made every adjudication call in the Agreement Report myself (staff right on 6 of 7 after review, defending #4). After Claude pointed out that my first reason on #3 argued for an opinion rather than a reaction, I changed my call on #3.
+
+**Unit 6 — staff labels disclosure:** I labelled the 30 staff posts myself
+under the staff taxonomy. Claude explained the staff rules in general terms but
+gave no label for any post, and placed the staff answer key in `data/` only
+after my 30 labels were saved.
+
 **Pre-labelling disclosure:**
 
 The first 20 rows I labelled cold, by myself, using only my written
@@ -630,8 +641,8 @@ calling everything `announcements`. Criterion 5 flipped from MISSED to MET:
 the most-confident third is now right 90–100% of the time, and the model is
 more confident when it's right (0.63–0.68) than when it's wrong (0.48–0.51).
 Accuracy still misses 0.85, and `debates_opinions` is still never predicted:
-on every seed its 4 test posts went to `announcements` or
-`politics_elections`. More training fixed the under-training, but it couldn't
+on every seed its 4 test posts went to other labels, mostly
+`announcements`. More training fixed the under-training, but it couldn't
 fix a label with only 17 training examples and my fuzziest boundary.
 Criterion 4 can't move from a training change, since it measures my labelling.
 
@@ -641,11 +652,38 @@ Criterion 4 can't move from a training change, since it measures my labelling.
 
 <!-- For each criterion still missed: what you'd do, and why you stopped. -->
 
+**Criterion 1, accuracy ≥ 0.85 (now 0.75).** Most of the remaining errors are
+other labels being called `announcements` (in seed 42: 2 crime, 2 politics, 3
+debates). Next I'd add examples to the smaller labels so `announcements` stops
+being the safe default. I stopped because the assignment allows one change per
+unit, and I spent mine on epochs, which my diagnosis pointed at first.
+
+**Criterion 2, `debates_opinions` F1 ≥ 0.60 (still 0.00).** The model never
+predicts this label. Next I'd collect about 30 more `debates_opinions` posts
+(the assignment's "add examples to your thinnest label" fix) and re-check my
+existing ones against the "still discussing vs. decided" rule, since I added
+this label late. I stopped for the same one-change reason, and because there
+weren't enough debate-style posts left in the News feed to collect quickly.
+
+**Criterion 4, staff agreement ≥ 24/30 (23/30).** This measures my labelling,
+so no model change can fix it. Next I'd go back through my own `labels.csv`
+with one question from the agreement report in mind: does a fact actually
+carry the post's point, or is it just mentioned? I stopped because relabelling
+counts as my one change, and the rules say labels stay fixed otherwise.
+
 
 
 **The gap between what I meant my labels to capture and what the model
 learned:**
 <!-- Two sentences. Your confusion matrix is the evidence. -->
+
+I meant my labels to sort headlines by topic, including a separate group for
+people still arguing about an issue. The model learned the topics with strong
+keywords (arrests and sentencings for `crime_court`, candidates and elections
+for `politics_elections`) but treats "still discussing" as just another
+`announcements` post. In the after confusion matrices, none of the 4 debates
+posts was ever called `debates_opinions`; on every seed most went to
+`announcements`.
 
 
 
